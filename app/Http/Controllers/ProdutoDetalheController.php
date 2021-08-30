@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Unidade;
 use App\Models\ProdutoDetalhe;
+use App\Models\ItemDetalhe;
 
 
 class ProdutoDetalheController extends Controller
@@ -56,11 +57,18 @@ class ProdutoDetalheController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  App\Models\ProdutoDetalhe $produtoDetalhe
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProdutoDetalhe $produtoDetalhe)
+    public function edit($id)
     {
+
+        // força o carregamento do relacionamento com o item (eager loading):
+        $produtoDetalhe = ItemDetalhe::with(['item'])->find($id);
+
+        // (lazy loading):
+        // $produtoDetalhe = ItemDetalhe::find($id);
+        
         $unidades = Unidade::all();
         return view('app.produto_detalhe.edit', ['produto_detalhe' => $produtoDetalhe, 'unidades' => $unidades]);
     }
