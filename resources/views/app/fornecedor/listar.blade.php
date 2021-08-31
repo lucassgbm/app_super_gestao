@@ -42,6 +42,30 @@
                                 <td><a href="{{ route('app.fornecedor.excluir', $fornecedor->id) }}">Excluir</a></td>
                                 
                             </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <p>Lista de produtos</p>
+                                        <table border="1" style="margin:20px">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nome</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($fornecedor->produtos as $key => $produto)
+                                                    
+                                                    <tr>
+                                                        <td>{{ $produto->id }}</td>
+                                                        <td>{{ $produto->nome }}</td>
+                                                    </tr>
+
+                                                @endforeach
+                                            </body>
+                                        </table>
+                                </td>
+                                
+                            </tr>
                         @endforeach
                     </tbody>
                     
