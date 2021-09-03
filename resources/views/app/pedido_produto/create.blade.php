@@ -30,6 +30,8 @@
                         <tr>
                             <td>ID</td>
                             <td>Nome do produto</td>
+                            <td>Data de inclusão do item no pedido</td>
+                            <td>Data de inclusão do item no pedido</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,11 +39,20 @@
                             <tr>
                                 <td> {{ $produto->id }} </td>
                                 <td> {{ $produto->nome }} </td>
+                                <td> {{ $produto->pivot->created_at->format('d/m/Y') }} </td>
+                                <td>
+                                    <form id="form_{{$produto->pivot->id}}" method="post" action="{{ route('pedido-produto.destroy', ['pedidoProduto' => $produto->pivot->id, 'pedido_id' => $pedido->id]) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a href="#" onclick="document.getElementById('form_{{$produto->pivot->id}}').submit()">Excluir</a>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
 
                 </table>
+
                 @component('app.pedido_produto._components.form_create', ['pedido' => $pedido, 'produtos' => $produtos])
                 @endcomponent
             </div>
